@@ -1,11 +1,10 @@
-Package: WestechReportGenerate
+Package: wtReporter
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Compiles files to a Word table.
 Version: 0.1.0
 Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Maintainer: hathawayj@byui.edu
+Description: An Rstudio Addin to allow users to build a predefined table.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
