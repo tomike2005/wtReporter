@@ -7,7 +7,6 @@ Authors@R:
            family = "Hathaway",
            role = c("aut", "cre"),
            email = "hathawayj@byui.edu")
-Maintainer: hathawayj@byui.edu
 Description: An Rstudio Addin to allow users to build a predefined table.
 License: What license is it under?
 Encoding: UTF-8
