@@ -11,4 +11,5 @@ Description: An Rstudio Addin to allow users to build a predefined table.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+imports: shiny,flextable,tibble,tidyverse,mosaic,officer,readxl,shinyWidgets
 Depends: shiny,flextable,tibble,tidyverse,mosaic,officer,readxl,shinyWidgets
