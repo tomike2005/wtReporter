@@ -28,7 +28,7 @@ GenerateReport <- function(test_input) {
 
   for (i in needed_packages) {
 
-    if(nzchar(system.file(package = i))){
+    if(!nzchar(system.file(package = i))){
 
       install.packages(i)
 
