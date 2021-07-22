@@ -22,6 +22,23 @@ GenerateReport <- function(test_input) {
 
   months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
+  
+  
+  needed_packages <- c("shiny","flextable","tibble","tidyverse","mosaic","officer","readxl","shinyWidgets")
+
+  for (i in needed_packages) {
+
+    if(nzchar(system.file(package = i))){
+
+      install.packages(i)
+
+    }
+  }
+
+  lapply(needed_packages, require, character.only = TRUE)
+
+  
+  
   #Shiny Widget CSS
   CSS <- '
                               .bg-grey {
