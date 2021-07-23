@@ -614,11 +614,11 @@ GenerateReport <- function(test_input) {
 
         # Adjust Column Widths
         width(j = 1, width = .4) %>%
-        width(j = 2, width = 2) %>%
+        width(j = 2, width = 2.5) %>%
         width(j = 3, width = 1) %>%
         width(j = 4, width = .8) %>%
         width(j = 5, width = .8) %>%
-        width(j = 7, width = 1.2) %>%
+        width(j = 7, width = .7) %>%
 
         # Create cell Borders
         border_inner(border = fp_border(color = "#c9c9c9", width = 1.5)) %>%
