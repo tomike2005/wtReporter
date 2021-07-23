@@ -643,7 +643,7 @@ GenerateReport <- function(test_input) {
 
         ############################################################################
       # Add Title
-      set_caption(paste0("WesTech Monthly Level 15 Report - ",input$current_month," 2021")) %>%
+      set_caption(paste0("WesTech Monthly Level 1 Report - ",input$current_month," 2021")) %>%
         ############################################################################
 
       # Edit Table Font
