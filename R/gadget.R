@@ -436,7 +436,7 @@ GenerateReport <- function(test_input) {
       df[3,7] <- ""
 
       df[4,1] <- "H3"
-      df[4,2] <- "Number of Slam Dunks"
+      df[4,2] <- "Slam Dunk Rate"
       df[4,3] <- "YTD"
       df[4,4] <- "> 40"
       df[4,7] <- ""
@@ -444,13 +444,13 @@ GenerateReport <- function(test_input) {
       df <- df %>%
         add_row(`Performance Indicators` = "Financial Success", .before = 5)
       df[6,1] <- "F1a"
-      df[6,2] <- "EBITDA ($Millions)"
+      df[6,2] <- "EBITDA Excluding Exceptionals ($Millions)"
       df[6,3] <- "Month"
       df[6,4] <- "$1.46"
       df[6,7] <- ""
 
       df[7,1] <- "F1b"
-      df[7,2] <- "EBITDA ($Millions)"
+      df[7,2] <- "EBITDA Excluding Exceptionals ($Millions)"
       df[7,3] <- "YTD"
       df[7,4] <- "$2.97"
       df[7,7] <- ""
