@@ -212,6 +212,7 @@ GenerateReport <- function(test_input) {
       #Read in our dataframes
       df1 <- read_excel(input$file1$datapath, sheet =  "TOT Co. Rolling Data")
       df2 <- read_excel(input$file2$datapath, sheet =  "Inc by entity")
+      df2 <- read_excel(input$file2$datapath, sheet =  "USA - TB")
       df3a <- read_excel(input$file3$datapath, sheet = "Main")
       df3b <- read_excel(input$file3$datapath, sheet = "PM & Estimating")
       df3c <- read_excel(input$file3$datapath, sheet = "Quality & Efficiency")
@@ -219,393 +220,421 @@ GenerateReport <- function(test_input) {
       df4 <- read_excel(input$file4$datapath)
 
       # Convert data frame into tibble
-      df1 <- as_tibble(df1)
+df1 <- as_tibble(df1)
 
-      # Extract meaningful data
-      # Column X
-      X <- 24
-      # Remove top rows & select designated rows
-      df1 <- df1[c(13,14,18),c(X)]
-      colnames(df1) <- '2021 Actual'
+# Extract meaningful data
+# Column X
+X <- 24
+# Remove top rows & select designated rows
+df1 <- df1[c(13,14,18),c(X)]
+colnames(df1) <- '2021 Actual'
 
-      # Round the big numbers
-      df1$'2021 Actual' <- round(as.numeric(df1$'2021 Actual'),2)
-      df1$`2021 Actual` <- as.character(df1$`2021 Actual`)
-
-      # Convert data frame into tibble
-      df2 <- as_tibble(df2)
-
-      # Extract meaningful data
-      # Column W
-      W <- 23
-      # Select important data
-      df2 <- df2[c(47,23,9,7,33,9,13),c(W)]
-      # Rename Columns
-      colnames(df2) <- c('2021 Actual')
-      df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7'),.before = 1)
+# Round the big numbers
+df1$'2021 Actual' <- round(as.numeric(df1$'2021 Actual'),2)
+df1$`2021 Actual` <- as.character(df1$`2021 Actual`)
 
 
-      # Strip the commas
-      df2$'2021 Actual' <- as.numeric(gsub(",","",df2$'2021 Actual'))
+# Convert data frame into tibble
+df2a <- as_tibble(df2a)
 
-      df2[3,2] <- df2[2,2] / df2[3,2]
-      df2[7,2] <- df2[7,2] / df2[6,2]
-
-      df2 <- df2 %>%
-        mutate(
-          '2021 Actual' <- case_when(
-            Key %in% c(1,2,4,5,6) ~ round(df2$'2021 Actual'/1000000,2),
-            Key %in% c(3,7) ~ df2$'2021 Actual'
-          )
-        )
-      colnames(df2) <- c('Key','2021 Actual','new_column')
-      df2 <- df2[-c(1,2)]
-      colnames(df2) <- c('2021 Actual')
-      # Round the big numbers
-      df2$'2021 Actual' <- round(df2$'2021 Actual',2)
-      df2[3,1] <- df2[3,1]*100
-      df2[7,1] <- df2[7,1]*100
-      df2$`2021 Actual` <- as.character(df2$`2021 Actual`)
-      df2[1,1] <- paste('$',df2[1,1])
-      df2[2,1] <- paste('$',df2[2,1])
-      df2[3,1] <- paste(df2[3,1],'%')
-      df2[4,1] <- paste('$',df2[4,1])
-      df2[5,1] <- paste('$',df2[5,1])
-      df2[6,1] <- paste('$',df2[6,1])
-      df2[7,1] <- paste(df2[7,1],'%')
+# Extract meaningful data
+# Columns E and L
+E <- 5
+L <- 12
+# Select important data
+df2a <- df2a[c(568),c(E,L)]
+# Rename Columns
+colnames(df2a) <- c('2021 Actual Month','2021 Actual YTD')
+df2a <- df2a %>% add_column('Key' = c('1'),.before = 1)
 
 
-      # Convert data frame into tibble
-      df3a <- as_tibble(df3a)
-
-      # Extract meaningful data
-      # Column D
-      D <- 3
-      # Remove top rows & select designated rows
-      df3a <- df3a[c(16),c(D)]
-      colnames(df3a) <- '2021 Actual'
-      #df3a %>%
-      #add_column("Performance Indicators"="0" ) %>%
-      #add_column("Dataset"="A" )
-      # Round the big numbers
-      df3a$'2021 Actual' <- round(as.numeric(df3a$'2021 Actual'),2)
-      df3a$'2021 Actual' <- as.character(df3a$'2021 Actual')
-      df3a[1,1] <- paste(df3a[1,1],'%')
+# Strip the commas
+df2a$'2021 Actual Month' <- as.numeric(gsub(",","",df2a$'2021 Actual Month'))
+df2a$'2021 Actual YTD' <- as.numeric(gsub(",","",df2a$'2021 Actual YTD'))
 
 
-      # Convert data frame into tibble
-      df3b <- as_tibble(df3b)
+# Convert data frame into tibble
+df2 <- as_tibble(df2)
 
-      # Extract meaningful data
-      # Column D
-      D <- 3
-      # Remove top rows & select designated rows
-      df3b <- df3b[c(9,7,8),c(D)]
-      colnames(df3b) <- '2021 Actual'
-      # Round the big numbers
-      df3b$'2021 Actual' <- round(as.numeric(df3b$'2021 Actual'),2)
-      df3b
-      df3b[1,1] <- df3b[1,1]*100
-      df3b[2,1] <- df3b[2,1]*100
-      df3b$'2021 Actual' <- as.character(df3b$'2021 Actual')
-      df3b[1,1] <- paste(df3b[1,1],'%')
-      df3b[2,1] <- paste(df3b[2,1],'%')
+# Extract meaningful data
+# Column W
+W <- 23
+# Select important data
+df2 <- df2[c(47,23,9,7,33,9,13),c(W)]
+# Rename Columns
+colnames(df2) <- c('2021 Actual')
+df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7'),.before = 1)
 
 
-      # Convert data frame into tibble
-      df3c <- as_tibble(df3c)
+# Strip the commas
+df2$'2021 Actual' <- as.numeric(gsub(",","",df2$'2021 Actual'))
 
-      # Extract meaningful data
-      # Column C
-      C <- 2
-      # Remove top rows & select designated rows
-      df3c <- df3c[c(6),c(C)]
-      colnames(df3c) <- '2021 Actual'
-      # Round the big numbers
-      df3c$'2021 Actual' <- round(as.numeric(df3c$'2021 Actual'),2)
-      df3c[1,1] <- df3c[1,1]*100
-      df3c$'2021 Actual' <- as.character(df3c$'2021 Actual')
-      df3c[1,1] <- paste(df3c[1,1],'%')
+#EBITDA before exceptionals
+df2[1,2] <- df2[1,2]+df2a[1,2]
+df2[2,2] <- df2[2,2]+df2a[1,3]
 
+# Get EBITDA % of sales and ?
+df2[3,2] <- df2[2,2] / df2[3,2]
+df2[7,2] <- df2[7,2] / df2[6,2]
 
-      # Convert data frame into tibble
-      df3d <- as_tibble(df3d)
+df2 <- df2 %>%
+  mutate(
+    '2021 Actual' <- case_when(
+      Key %in% c(1,2,4,5,6) ~ round(df2$'2021 Actual'/1000000,2),
+      Key %in% c(3,7) ~ df2$'2021 Actual'
+    )
+  )
+colnames(df2) <- c('Key','2021 Actual','new_column')
+df2 <- df2[-c(1,2)]
+colnames(df2) <- c('2021 Actual')
+# Round the big numbers
+df2$'2021 Actual' <- round(df2$'2021 Actual',2)
+df2[3,1] <- df2[3,1]*100
+df2[7,1] <- df2[7,1]*100
 
-      # Extract meaningful data
-      # Column C
-      C <- 2
-      # Column D
-      D <- 3
-      # Remove top rows & select designated rows
-      df3d <- df3d[c(6),c(C,D)]
-      colnames(df3d) <- c('Current','Year_End')
-      df3d$'Current' <- as.numeric(df3d$'Current')
-      df3d$'Year_End' <- as.numeric(df3d$'Year_End')
-      df3d[1,1] <- df3d[1,1] - df3d[2,1]
-      df3d <- df3d[-c(1)]
-      colnames(df3d) <- c('2021 Actual')
-      # Round the big numbers
-      df3d$'2021 Actual' <- round(as.numeric(df3d$'2021 Actual'/1000000),2)
-      df3d$'2021 Actual' <- as.character(df3d$'2021 Actual')
-
-
-      # Convert data frame into tibble
-      df4 <- as_tibble(df4)
-
-      # Extract meaningful data
-      # January
-      Jan <- 3
-      # February
-      Feb <- 4
-      # March
-      Mar <- 5
-      # April
-      Apr <- 6
-      # May
-      May <- 7
-      # June
-      Jun <- 8
-      # July
-      Jul <- 9
-      # August
-      Aug <- 10
-      # September
-      Sep <- 11
-      # October
-      Oct <- 12
-      # November
-      Nov <- 13
-      # December
-      Dec <- 14
-      # Remove top rows & select designated rows
-      df4 <- df4[c(129),c(Mar)]
-      colnames(df4) <- '2021 Actual'
-      # Round the big numbers
-      df4$'2021 Actual' <- round(as.numeric(df4$'2021 Actual')/1000000,2)
-      df4$'2021 Actual' <- as.character(df4$'2021 Actual')
+df2$`2021 Actual` <- as.character(df2$`2021 Actual`)
+df2[1,1] <- paste('$',df2[1,1])
+df2[2,1] <- paste('$',df2[2,1])
+df2[3,1] <- paste(df2[3,1],'%')
+df2[4,1] <- paste('$',df2[4,1])
+df2[5,1] <- paste('$',df2[5,1])
+df2[6,1] <- paste('$',df2[6,1])
+df2[7,1] <- paste(df2[7,1],'%')
 
 
-      df = bind_rows(df1,df2)
-      df = bind_rows(df,df3b)
-      df = bind_rows(df,df3a,)
-      df = bind_rows(df,df3c)
-      df = bind_rows(df,df3d)
-      #df = bind_rows(df,df4)
 
-      df <- df %>% add_row('2021 Actual' = '0',.before = 7)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 9)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 13)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 14)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 15)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 16)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 17)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 18)
-      df <- df %>% add_row('2021 Actual' = '0',.before = 19)
-      df <- df %>% add_row('2021 Actual' = '0%',.before = 20)
-      df <- df %>% add_row('2021 Actual' = '$0',.before = 21)
-      df <- df %>% add_column('Key' = c('1','2','3','4','5','6','7','8','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','Q','P','R','9'),.before = 1)
+# Convert data frame into tibble
+df3a <- as_tibble(df3a)
 
-      df <- df[order(df$Key),]
-
-      df <- df[-c(1)]
+# Extract meaningful data
+# Column D
+D <- 3
+# Remove top rows & select designated rows
+df3a <- df3a[c(16),c(D)]
+colnames(df3a) <- '2021 Actual'
+#df3a %>%
+#add_column("Performance Indicators"="0" ) %>%
+#add_column("Dataset"="A" )
+# Round the big numbers
+df3a$'2021 Actual' <- round(as.numeric(df3a$'2021 Actual'),2)
+df3a$'2021 Actual' <- as.character(df3a$'2021 Actual')
+df3a[1,1] <- paste(df3a[1,1],'%')
 
 
-      # Create Report
-      df <- df %>%
+# Convert data frame into tibble
+df3b <- as_tibble(df3b)
 
-        # Format Columns
-        add_column("Performance Indicators"="0", .before = "2021 Actual" ) %>%
-        add_column("Code"="H1", .before = "Performance Indicators") %>%
-        add_column(`Time Base` = "YTD", .after = "Performance Indicators") %>%
-        add_column(`2021 Forecast` = "YTD", .before = "2021 Actual") %>%
-        add_column(`Status vs Budget` = "Color", .after = "2021 Actual") %>%
-        add_column(`Direction of Trend vs Budget` = "Image", .after = "Status vs Budget") %>%
+# Extract meaningful data
+# Column D
+D <- 3
+# Remove top rows & select designated rows
+df3b <- df3b[c(9,7,8),c(D)]
+colnames(df3b) <- '2021 Actual'
+# Round the big numbers
+df3b$'2021 Actual' <- round(as.numeric(df3b$'2021 Actual'),2)
+df3b
+df3b[1,1] <- df3b[1,1]*100
+df3b[2,1] <- df3b[2,1]*100
+df3b$'2021 Actual' <- as.character(df3b$'2021 Actual')
+df3b[1,1] <- paste(df3b[1,1],'%')
+df3b[2,1] <- paste(df3b[2,1],'%')
 
-        # Format Rows
-        add_row(`Performance Indicators` = "Health and Safety", .before = 1)
-      df[2,1] <- "H1"
-      df[2,2] <- "Total Recordable Injury Rate"
-      df[2,3] <- "YTD"
-      df[2,4] <- "< 1.15"
-      df[2,7] <- ""
 
-      df[3,1] <- "H2"
-      df[3,2] <- "Days Away / Restricted Time Rate"
-      df[3,3] <- "YTD"
-      df[3,4] <- "< 1.15"
-      df[3,7] <- ""
+# Convert data frame into tibble
+df3c <- as_tibble(df3c)
 
-      df[4,1] <- "H3"
-      df[4,2] <- "Slam Dunk Rate"
-      df[4,3] <- "YTD"
-      df[4,4] <- "> 40"
-      df[4,7] <- ""
+# Extract meaningful data
+# Column C
+C <- 2
+# Remove top rows & select designated rows
+df3c <- df3c[c(6),c(C)]
+colnames(df3c) <- '2021 Actual'
+# Round the big numbers
+df3c$'2021 Actual' <- round(as.numeric(df3c$'2021 Actual'),2)
+df3c[1,1] <- df3c[1,1]*100
+df3c$'2021 Actual' <- as.character(df3c$'2021 Actual')
+df3c[1,1] <- paste(df3c[1,1],'%')
 
-      df <- df %>%
-        add_row(`Performance Indicators` = "Financial Success", .before = 5)
-      df[6,1] <- "F1a"
-      df[6,2] <- "EBITDA Excluding Exceptionals ($Millions)"
-      df[6,3] <- "Month"
-      df[6,4] <- "$1.46"
-      df[6,7] <- ""
 
-      df[7,1] <- "F1b"
-      df[7,2] <- "EBITDA Excluding Exceptionals ($Millions)"
-      df[7,3] <- "YTD"
-      df[7,4] <- "$2.97"
-      df[7,7] <- ""
+# Convert data frame into tibble
+df3d <- as_tibble(df3d)
 
-      df[8,1] <- "F1c"
-      df[8,2] <- "EBITDA % of Sales"
-      df[8,3] <- "YTD"
-      df[8,4] <- "7.6%"
-      df[8,7] <- ""
+# Extract meaningful data
+# Column C
+C <- 2
+# Column D
+D <- 3
+# Remove top rows & select designated rows
+df3d <- df3d[c(6),c(C,D)]
+colnames(df3d) <- c('Current','Year_End')
+df3d$'Current' <- as.numeric(df3d$'Current')
+df3d$'Year_End' <- as.numeric(df3d$'Year_End')
+df3d[1,1] <- df3d[1,1] - df3d[2,1]
+df3d <- df3d[-c(1)]
+colnames(df3d) <- c('2021 Actual')
+# Round the big numbers
+df3d$'2021 Actual' <- round(as.numeric(df3d$'2021 Actual'/1000000),2)
+df3d$'2021 Actual' <- as.character(df3d$'2021 Actual')
 
-      df[9,1] <- "F2"
-      df[9,2] <- "EBITE ($Millions)"
-      df[9,3] <- "YTD"
-      df[9,4] <- "0"
-      df[9,7] <- ""
 
-      df[12,1] <- "F3"
-      df[12,2] <- "Booked GM %"
-      df[12,3] <- "YTD"
-      df[12,4] <- "0"
-      df[12,7] <- ""
+# Convert data frame into tibble
+df4 <- as_tibble(df4)
+
+# Extract meaningful data
+# January
+Jan <- 3
+# February
+Feb <- 4
+# March
+Mar <- 5
+# April
+Apr <- 6
+# May
+May <- 7
+# June
+Jun <- 8
+# July
+Jul <- 9
+# August
+Aug <- 10
+# September
+Sep <- 11
+# October
+Oct <- 12
+# November
+Nov <- 13
+# December
+Dec <- 14
+# Remove top rows & select designated rows
+df4 <- df4[c(129),c(Mar)]
+colnames(df4) <- '2021 Actual'
+# Round the big numbers
+df4$'2021 Actual' <- round(as.numeric(df4$'2021 Actual')/1000000,2)
+df4$'2021 Actual' <- as.character(df4$'2021 Actual')
+
+
+df = bind_rows(df1,df2)
+df = bind_rows(df,df3b)
+df = bind_rows(df,df3a,)
+df = bind_rows(df,df3c)
+df = bind_rows(df,df3d)
+#df = bind_rows(df,df4)
+
+df <- df %>% add_row('2021 Actual' = '0',.before = 7)
+df <- df %>% add_row('2021 Actual' = '0',.before = 8)
+df <- df %>% add_row('2021 Actual' = '0',.before = 13)
+df <- df %>% add_row('2021 Actual' = '0',.before = 14)
+df <- df %>% add_row('2021 Actual' = '0',.before = 15)
+df <- df %>% add_row('2021 Actual' = '0',.before = 16)
+df <- df %>% add_row('2021 Actual' = '0',.before = 17)
+df <- df %>% add_row('2021 Actual' = '0',.before = 18)
+df <- df %>% add_row('2021 Actual' = '0',.before = 19)
+df <- df %>% add_row('2021 Actual' = '0',.before = 20)
+df <- df %>% add_row('2021 Actual' = '0%',.before = 20)
+df <- df %>% add_row('2021 Actual' = '$0',.before = 21)
+df <- df %>% add_row('2021 Actual' = '$0',.before = 23)
+df <- df %>% add_column('Key' = c('1','2','3','4','5','6','7','8','E','9','A','D','B','C','G','H','I','J','K','L','M','N','O','P','Q','S','R','T','F'),.before = 1)
+
+df <- df[order(df$Key),]
+
+df <- df[-c(1)]
+
+
+# Create Report
+df <- df %>%
+  
+  # Format Columns
+  add_column("Performance Indicators"="0", .before = "2021 Actual" ) %>%
+  add_column("Code"="H1", .before = "Performance Indicators") %>%
+  add_column(`Time Base` = "YTD", .after = "Performance Indicators") %>%
+  add_column(`2021 Forecast` = "YTD", .before = "2021 Actual") %>%
+  add_column(`Status vs Budget` = "Color", .after = "2021 Actual") %>%
+  add_column(`Direction of Trend vs Budget` = "Image", .after = "Status vs Budget") %>%
+  
+  # Format Rows
+  add_row(`Performance Indicators` = "Health and Safety", .before = 1)
+df[2,1] <- "H1"
+df[2,2] <- "Total Recordable Injury Rate"
+df[2,3] <- "YTD"
+df[2,4] <- "< 1.15"
+df[2,7] <- ""
+
+df[3,1] <- "H2"
+df[3,2] <- "Days Away / Restricted Time Rate"
+df[3,3] <- "YTD"
+df[3,4] <- "< 1.15"
+df[3,7] <- ""
+
+df[4,1] <- "H3"
+df[4,2] <- "Slam Dunk Rate"
+df[4,3] <- "YTD"
+df[4,4] <- "> 40"
+df[4,7] <- ""
+
+df <- df %>%
+  add_row(`Performance Indicators` = "Financial Success", .before = 5)
+df[6,1] <- "F1a"
+df[6,2] <- "EBITDA Excluding Exceptionals ($Millions)"
+df[6,3] <- "Month"
+df[6,4] <- "$1.46"
+df[6,7] <- ""
+
+df[7,1] <- "F1b"
+df[7,2] <- "EBITDA Excluding Exceptionals ($Millions)"
+df[7,3] <- "YTD"
+df[7,4] <- "$2.97"
+df[7,7] <- ""
+
+df[8,1] <- "F1c"
+df[8,2] <- "EBITDA % of Sales"
+df[8,3] <- "YTD"
+df[8,4] <- "7.6%"
+df[8,7] <- ""
+
+df[9,1] <- "F2"
+df[9,2] <- "EBITE ($Millions)"
+df[9,3] <- "YTD"
+df[9,4] <- "0"
+df[9,7] <- ""
+
+df[12,1] <- "F3"
+df[12,2] <- "Booked GM %"
+df[12,3] <- "YTD"
+df[12,4] <- "0"
+df[12,7] <- ""
+
+df[13,1] <- "F4a"
+df[13,2] <- "Revenue ($Millions)"
+df[13,3] <- "Month"
+df[13,4] <- "$19.7"
+df[13,7] <- ""
+
+df[14,1] <- "F4b"
+df[14,2] <- "Revenue ($Millions)"
+df[14,3] <- "YTD"
+df[14,4] <- "$39"
+df[14,7] <- ""
+
+df[14,1] <- "F5a"
+df[14,2] <- "Gross Margin $"
+df[14,3] <- "Month"
+df[14,4] <- "$5.9"
+df[14,7] <- ""
+
+df[14,1] <- "F5b"
+df[14,2] <- "Gross Margin $"
+df[14,3] <- "YTD"
+df[14,4] <- "$24.0"
+df[14,7] <- ""
+
+df[15,1] <- "F5c"
+df[15,2] <- "Gross Margin %"
+df[15,3] <- "YTD"
+df[15,4] <- "31%"
+df[15,7] <- ""
+
+df[10,1] <- "F6"
+df[10,2] <- "Bookings ($Millions)"
+df[10,3] <- "YTD"
+df[10,4] <- "$61.9"
+df[10,7] <- ""
+
+df[11,1] <- "F7"
+df[11,2] <- "Backlog ($Millions)"
+df[11,3] <- "Period End"
+df[11,4] <- "0"
+df[11,7] <- ""
+
+df[16,1] <- "F8a"
+df[16,2] <- "Cap Ex ($Millions)"
+df[16,3] <- "Month"
+df[16,4] <- "0"
+df[16,7] <- ""
+
+df[17,1] <- "F8b"
+df[17,2] <- "Cap Ex ($Millions)"
+df[17,3] <- "YTD"
+df[17,4] <- "0"
+df[17,7] <- ""
+
+df[18,1] <- "F9"
+df[18,2] <- "Net Bank Debt ($Millions)"
+df[18,3] <- "Period End"
+df[18,4] <- "0"
+df[18,7] <- ""
+
+df[19,1] <- "F10"
+df[19,2] <- "RONA (NI/(FA+NWC)"
+df[19,3] <- "Period End"
+df[19,4] <- "0"
+df[19,7] <- ""
+
+df[20,1] <- "F11"
+df[20,2] <- "Rental Unit Utilization"
+df[20,3] <- "Period End"
+df[20,4] <- "0"
+df[20,7] <- ""
+
+df <- df %>%
+  add_row(`Performance Indicators` = "People Services", .before = 21)
+df[22,1] <- "P1a"
+df[22,2] <- "Headcount USA"
+df[22,3] <- "Period End"
+df[22,4] <- "575"
+df[22,7] <- ""
+
+df[23,1] <- "P1b"
+df[23,2] <- "Headcount Total"
+df[23,3] <- "Period End"
+df[23,4] <- "656"
+df[23,7] <- ""
+
+df[24,1] <- "P2"
+df[24,2] <- "Employee Turnover Rate"
+df[24,3] <- "Rolling 12 Month"
+df[24,4] <- "12%"
+df[24,7] <- ""
+
+df[25,1] <- "P3"
+df[25,2] <- "GM$ / Employee Total ($’000)"
+df[25,3] <- "Rolling 12 Month"
+df[25,4] <- "$72"
+df[25,7] <- ""
+
+df <- df %>%
+  add_row(`Performance Indicators` = "Customer", .before = 26)
+df[27,1] <- "C1"
+df[27,2] <- "On Time Delivery %"
+df[27,3] <- "YTD"
+df[27,4] <- "97%"
+df[27,7] <- ""
+
+df <- df %>%
+  add_row(`Performance Indicators` = "Winning Team", .before = 28)
+df[29,1] <- "OE1"
+df[29,2] <- "On Time Submittal %"
+df[29,3] <- "YTD"
+df[29,4] <- "97%"
+df[29,7] <- ""
+
+df[30,1] <- "OE2"
+df[30,2] <- "On Time Release to Purchasing Median Weeks to Fab"
+df[30,3] <- "YTD"
+df[30,4] <- "97%"
+df[30,7] <- ""
+
+df[31,1] <- "OE3"
+df[31,2] <- "Median Weeks to Fab"
+df[31,3] <- "YTD"
+df[31,4] <- "16"
+df[31,7] <- ""
+
+df[32,1] <- "OE4"
+df[32,2] <- "Warranty %"
+df[32,3] <- "18 Month Rolling"
+df[32,4] <- "2.0%"
+df[32,7] <- ""
       
-      df[13,1] <- "F4a"
-      df[13,2] <- "Revenue ($Millions)"
-      df[13,3] <- "Month"
-      df[13,4] <- "$19.7"
-      df[13,7] <- ""
-      
-      df[14,1] <- "F4b"
-      df[14,2] <- "Revenue ($Millions)"
-      df[14,3] <- "YTD"
-      df[14,4] <- "$39"
-      df[14,7] <- ""
-      
-      df[14,1] <- "F5a"
-      df[14,2] <- "Gross Margin $"
-      df[14,3] <- "Month"
-      df[14,4] <- "$5.9"
-      df[14,7] <- ""
-      
-      df[14,1] <- "F5b"
-      df[14,2] <- "Gross Margin $"
-      df[14,3] <- "YTD"
-      df[14,4] <- "$24.0"
-      df[14,7] <- ""
-      
-      df[15,1] <- "F5c"
-      df[15,2] <- "Gross Margin %"
-      df[15,3] <- "YTD"
-      df[15,4] <- "31%"
-      df[15,7] <- ""
-      
-      df[10,1] <- "F6"
-      df[10,2] <- "Bookings ($Millions)"
-      df[10,3] <- "YTD"
-      df[10,4] <- "$61.9"
-      df[10,7] <- ""
-
-      df[11,1] <- "F7"
-      df[11,2] <- "Backlog ($Millions)"
-      df[11,3] <- "Period End"
-      df[11,4] <- "0"
-      df[11,7] <- ""
-
-      df[16,1] <- "F8a"
-      df[16,2] <- "Cap Ex ($Millions)"
-      df[16,3] <- "Month"
-      df[16,4] <- "0"
-      df[16,7] <- ""
-
-      df[17,1] <- "F8b"
-      df[17,2] <- "Cap Ex ($Millions)"
-      df[17,3] <- "YTD"
-      df[17,4] <- "0"
-      df[17,7] <- ""
-
-      df[18,1] <- "F9"
-      df[18,2] <- "Net Bank Debt ($Millions)"
-      df[18,3] <- "Period End"
-      df[18,4] <- "0"
-      df[18,7] <- ""
-
-      df[19,1] <- "F10"
-      df[19,2] <- "RONA (NI/(FA+NWC)"
-      df[19,3] <- "Period End"
-      df[19,4] <- "0"
-      df[19,7] <- ""
-
-      df[20,1] <- "F11"
-      df[20,2] <- "Rental Unit Utilization"
-      df[20,3] <- "Period End"
-      df[20,4] <- "0"
-      df[20,7] <- ""
-
-      df <- df %>%
-        add_row(`Performance Indicators` = "People Services", .before = 21)
-      df[22,1] <- "P1a"
-      df[22,2] <- "Headcount USA"
-      df[22,3] <- "Period End"
-      df[22,4] <- "575"
-      df[22,7] <- ""
-
-      df[23,1] <- "P1b"
-      df[23,2] <- "Headcount Total"
-      df[23,3] <- "Period End"
-      df[23,4] <- "656"
-      df[23,7] <- ""
-
-      df[24,1] <- "P2"
-      df[24,2] <- "Employee Turnover Rate"
-      df[24,3] <- "Rolling 12 Month"
-      df[24,4] <- "12%"
-      df[24,7] <- ""
-
-      df[25,1] <- "P3"
-      df[25,2] <- "GM$ / Employee Total ($’000)"
-      df[25,3] <- "Rolling 12 Month"
-      df[25,4] <- "$72"
-      df[25,7] <- ""
-
-      df <- df %>%
-        add_row(`Performance Indicators` = "Customer", .before = 26)
-      df[27,1] <- "C1"
-      df[27,2] <- "On Time Delivery %"
-      df[27,3] <- "YTD"
-      df[27,4] <- "97%"
-      df[27,7] <- ""
-
-      df <- df %>%
-        add_row(`Performance Indicators` = "Winning Team", .before = 28)
-      df[29,1] <- "OE1"
-      df[29,2] <- "On Time Submittal %"
-      df[29,3] <- "YTD"
-      df[29,4] <- "97%"
-      df[29,7] <- ""
-
-      df[30,1] <- "OE2"
-      df[30,2] <- "On Time Release to Purchasing Median Weeks to Fab"
-      df[30,3] <- "YTD"
-      df[30,4] <- "97%"
-      df[30,7] <- ""
-
-      df[31,1] <- "OE3"
-      df[31,2] <- "Median Weeks to Fab"
-      df[31,3] <- "YTD"
-      df[31,4] <- "16"
-      df[31,7] <- ""
-
-      df[32,1] <- "OE4"
-      df[32,2] <- "Warranty %"
-      df[32,3] <- "18 Month Rolling"
-      df[32,4] <- "2.0%"
-      df[32,7] <- ""
-
-
       # Color Codes
       grey = "#c9c9c9"
       green = "#5ceb54"
