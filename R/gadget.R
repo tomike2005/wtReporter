@@ -212,7 +212,7 @@ GenerateReport <- function(test_input) {
       #Read in our dataframes
       df1 <- read_excel(input$file1$datapath, sheet =  "TOT Co. Rolling Data")
       df2 <- read_excel(input$file2$datapath, sheet =  "Inc by entity")
-      df2 <- read_excel(input$file2$datapath, sheet =  "USA - TB")
+      df2a <- read_excel(input$file2$datapath, sheet =  "USA - TB")
       df3a <- read_excel(input$file3$datapath, sheet = "Main")
       df3b <- read_excel(input$file3$datapath, sheet = "PM & Estimating")
       df3c <- read_excel(input$file3$datapath, sheet = "Quality & Efficiency")
