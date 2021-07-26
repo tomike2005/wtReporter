@@ -678,9 +678,9 @@ df[34,7] <- ""
         # Color Header Rows Grey
         bg(i = 1, bg = "#c9c9c9", part = "body") %>%
         bg(i = 5, bg = "#c9c9c9", part = "body") %>%
-        bg(i = 21, bg = "#c9c9c9", part = "body") %>%
-        bg(i = 26, bg = "#c9c9c9", part = "body") %>%
+        bg(i = 23, bg = "#c9c9c9", part = "body") %>%
         bg(i = 28, bg = "#c9c9c9", part = "body") %>%
+        bg(i = 30, bg = "#c9c9c9", part = "body") %>%
 
         ############################################################################
       # Add Title
