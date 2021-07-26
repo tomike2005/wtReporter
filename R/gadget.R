@@ -668,9 +668,9 @@ df[34,7] <- ""
         # Merge Header Rows
         merge_h(i = 1) %>%
         merge_h(i = 5) %>%
-        merge_h(i = 21) %>%
-        merge_h(i = 26) %>%
+        merge_h(i = 23) %>%
         merge_h(i = 28) %>%
+        merge_h(i = 30) %>%
 
         # Color Actual Column Grey
         bg(j = 5, bg = "#c9c9c9", part = "body") %>%
