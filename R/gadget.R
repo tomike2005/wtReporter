@@ -219,7 +219,7 @@ GenerateReport <- function(test_input) {
       df3d <- read_excel(input$file3$datapath, sheet = "Backlog")
       df4 <- read_excel(input$file4$datapath)
 
-      # Convert data frame into tibble
+# Convert data frame into tibble
 df1 <- as_tibble(df1)
 
 # Extract meaningful data
@@ -260,7 +260,7 @@ df2 <- as_tibble(df2)
 # Column W
 W <- 23
 # Select important data
-df2 <- df2[c(47,23,9,7,33,9,13),c(W)]
+df2 <- df2[c(47,23,9,7,33,9,13,37,13),c(W)]
 # Rename Columns
 colnames(df2) <- c('2021 Actual')
 df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7','8','9'),.before = 1)
@@ -633,15 +633,15 @@ df[34,2] <- "Warranty %"
 df[34,3] <- "18 Month Rolling"
 df[34,4] <- "2.0%"
 df[34,7] <- ""
-      
-      # Color Codes
-      grey = "#c9c9c9"
-      green = "#5ceb54"
-      red = "#ff4a4a"
-      yellow = "#fcff47"
 
-      # Creat Flextable
-      ft <- flextable(df)
+# Color Codes
+grey = "#c9c9c9"
+green = "#5ceb54"
+red = "#ff4a4a"
+yellow = "#fcff47"
+
+# Creat Flextable
+ft <- flextable(df)
 
       # Edit Flextable
       ft <- ft %>%
