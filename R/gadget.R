@@ -576,7 +576,7 @@ df[22,4] <- "0"
 df[22,7] <- ""
 
 df <- df %>%
-  add_row(`Performance Indicators` = "People Services", .before = 21)
+  add_row(`Performance Indicators` = "People Services", .before = 23)
 df[24,1] <- "P1a"
 df[24,2] <- "Headcount USA"
 df[24,3] <- "Period End"
@@ -602,7 +602,7 @@ df[27,4] <- "$72"
 df[27,7] <- ""
 
 df <- df %>%
-  add_row(`Performance Indicators` = "Customer", .before = 26)
+  add_row(`Performance Indicators` = "Customer", .before = 28)
 df[29,1] <- "C1"
 df[29,2] <- "On Time Delivery %"
 df[29,3] <- "YTD"
@@ -610,7 +610,7 @@ df[29,4] <- "97%"
 df[29,7] <- ""
 
 df <- df %>%
-  add_row(`Performance Indicators` = "Winning Team", .before = 28)
+  add_row(`Performance Indicators` = "Winning Team", .before = 30)
 df[31,1] <- "OE1"
 df[31,2] <- "On Time Submittal %"
 df[31,3] <- "YTD"
