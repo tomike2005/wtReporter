@@ -263,7 +263,7 @@ W <- 23
 df2 <- df2[c(47,23,9,7,33,9,13),c(W)]
 # Rename Columns
 colnames(df2) <- c('2021 Actual')
-df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7'),.before = 1)
+df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7','8','9'),.before = 1)
 
 
 # Strip the commas
@@ -280,7 +280,7 @@ df2[7,2] <- df2[7,2] / df2[6,2]
 df2 <- df2 %>%
   mutate(
     '2021 Actual' <- case_when(
-      Key %in% c(1,2,4,5,6) ~ round(df2$'2021 Actual'/1000000,2),
+      Key %in% c(1,2,4,5,6,8,9) ~ round(df2$'2021 Actual'/1000000,2),
       Key %in% c(3,7) ~ df2$'2021 Actual'
     )
   )
@@ -300,7 +300,8 @@ df2[4,1] <- paste('$',df2[4,1])
 df2[5,1] <- paste('$',df2[5,1])
 df2[6,1] <- paste('$',df2[6,1])
 df2[7,1] <- paste(df2[7,1],'%')
-
+df2[8,1] <- paste('$',df2[8,1])   #gross margin Month
+df2[9,1] <- paste('$',df2[9,1])   #gross margin YTD
 
 
 # Convert data frame into tibble
@@ -422,8 +423,6 @@ df = bind_rows(df,df3d)
 
 df <- df %>% add_row('2021 Actual' = '0',.before = 7)
 df <- df %>% add_row('2021 Actual' = '0',.before = 8)
-df <- df %>% add_row('2021 Actual' = '0',.before = 13)
-df <- df %>% add_row('2021 Actual' = '0',.before = 14)
 df <- df %>% add_row('2021 Actual' = '0',.before = 15)
 df <- df %>% add_row('2021 Actual' = '0',.before = 16)
 df <- df %>% add_row('2021 Actual' = '0',.before = 17)
