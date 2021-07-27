@@ -241,11 +241,12 @@ df2a <- as_tibble(df2a)
 # Columns E and L
 E <- 5
 L <- 12
-# Select important data
-df2a <- df2a[c(568),c(E,L)]
+# Select important data, exceptionals, tax
+df2a <- df2a[c(568,574:611,550:552,554),c(E,L)]
+
 # Rename Columns
 colnames(df2a) <- c('2021 Actual Month','2021 Actual YTD')
-df2a <- df2a %>% add_column('Key' = c('1'),.before = 1)
+df2a <- df2a %>% add_column('Key' = c(1:43),.before = 1)
 
 
 # Strip the commas
@@ -260,10 +261,10 @@ df2 <- as_tibble(df2)
 # Column W
 W <- 23
 # Select important data
-df2 <- df2[c(47,23,9,7,33,9,13,37,13),c(W)]
+df2 <- df2[c(47,23,9,7,33,9,13,37,13,21),c(W)]
 # Rename Columns
 colnames(df2) <- c('2021 Actual')
-df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7','8','9'),.before = 1)
+df2 <- df2 %>% add_column('Key' = c('1','2','3','4','5','6','7','8','9','10'),.before = 1)
 
 
 # Strip the commas
@@ -273,6 +274,11 @@ df2$'2021 Actual' <- as.numeric(gsub(",","",df2$'2021 Actual'))
 df2[1,2] <- df2[1,2]+df2a[1,2]
 df2[2,2] <- df2[2,2]+df2a[1,3]
 
+#EBITE
+Totals <- sum(df2a[1:43,3])
+df2[10,2] <- df2[10,2] + Totals
+
+
 # Get EBITDA % of sales and ?
 df2[3,2] <- df2[2,2] / df2[3,2]
 df2[7,2] <- df2[7,2] / df2[6,2]
@@ -280,7 +286,7 @@ df2[7,2] <- df2[7,2] / df2[6,2]
 df2 <- df2 %>%
   mutate(
     '2021 Actual' <- case_when(
-      Key %in% c(1,2,4,5,6,8,9) ~ round(df2$'2021 Actual'/1000000,2),
+      Key %in% c(1,2,4,5,6,8,9,10) ~ round(df2$'2021 Actual'/1000000,2),
       Key %in% c(3,7) ~ df2$'2021 Actual'
     )
   )
@@ -302,7 +308,7 @@ df2[6,1] <- paste('$',df2[6,1])
 df2[7,1] <- paste(df2[7,1],'%')
 df2[8,1] <- paste('$',df2[8,1])   #gross margin Month
 df2[9,1] <- paste('$',df2[9,1])   #gross margin YTD
-
+df2[10,1] <- paste('$',df2[10,1])   #EBITE
 
 # Convert data frame into tibble
 df3a <- as_tibble(df3a)
@@ -421,18 +427,18 @@ df = bind_rows(df,df3c)
 df = bind_rows(df,df3d)
 #df = bind_rows(df,df4)
 
-df <- df %>% add_row('2021 Actual' = '0',.before = 7)
-df <- df %>% add_row('2021 Actual' = '0',.before = 8)
-df <- df %>% add_row('2021 Actual' = '0',.before = 15)
-df <- df %>% add_row('2021 Actual' = '0',.before = 16)
-df <- df %>% add_row('2021 Actual' = '0',.before = 17)
-df <- df %>% add_row('2021 Actual' = '0',.before = 18)
-df <- df %>% add_row('2021 Actual' = '0',.before = 19)
-df <- df %>% add_row('2021 Actual' = '0',.before = 20)
-df <- df %>% add_row('2021 Actual' = '0%',.before = 20)
-df <- df %>% add_row('2021 Actual' = '$0',.before = 21)
-df <- df %>% add_row('2021 Actual' = '$0',.before = 23)
-df <- df %>% add_column('Key' = c('1','2','3','4','5','6','7','8','E','9','A','D','B','C','G','H','I','J','K','L','M','N','O','P','Q','S','R','T','F'),.before = 1)
+
+df <- df %>% add_row('2021 Actual' = '$0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0%',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0%',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0%',.after = 19)
+df <- df %>% add_row('2021 Actual' = '$0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '$0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '$0',.after = 19)
+df <- df %>% add_row('2021 Actual' = '0%',.after = 19)
+df <- df %>% add_column('Key' = c('1','2','3','4','5','6','E','9','A','D','B','C','7','P','Q','S','R','T','F','8','G','H','I','J','K','L','M','M','O'),.before = 1)
 
 df <- df[order(df$Key),]
 
