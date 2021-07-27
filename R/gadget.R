@@ -290,7 +290,7 @@ df2 <- df2 %>%
   mutate(
     '2021 Actual' <- case_when(
       Key %in% c(1,2,4,5,6,8,9,10,11) ~ round(df2$'2021 Actual'/1000000,2),
-      Key %in% c(3,7) ~ df2$'2021 Actual'
+      Key %in% c(3,7) ~ round(df2$'2021 Actual',4)*100
     )
   )
 colnames(df2) <- c('Key','2021 Actual','new_column')
@@ -298,8 +298,7 @@ df2 <- df2[-c(1,2)]
 colnames(df2) <- c('2021 Actual')
 # Round the big numbers
 df2$'2021 Actual' <- round(df2$'2021 Actual',2)
-df2[3,1] <- df2[3,1]*100
-df2[7,1] <- df2[7,1]*100
+
 
 df2$`2021 Actual` <- as.character(df2$`2021 Actual`)
 df2[1,1] <- paste('$',df2[1,1])
