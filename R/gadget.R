@@ -625,7 +625,7 @@ df[31,4] <- "97%"
 df[31,7] <- ""
 
 df[32,1] <- "OE2"
-df[32,2] <- "On Time Release to Purchasing Median Weeks to Fab"
+df[32,2] <- "On Time Release to Purchasing"
 df[32,3] <- "YTD"
 df[32,4] <- "97%"
 df[32,7] <- ""
