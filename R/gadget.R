@@ -439,7 +439,7 @@ df <- df %>% add_row('2021 Actual' = '%',.after = 19)
 df <- df %>% add_row('2021 Actual' = '%',.after = 19)
 df <- df %>% add_row('2021 Actual' = '$',.after = 19)
 df <- df %>% add_row('2021 Actual' = '$',.after = 19)
-df <- df %>% add_row('2021 Actual' = '0%',.after = 19)
+df <- df %>% add_row('2021 Actual' = '%',.after = 19)
 df <- df %>% add_column('Key' = c('1','2','3','4','5','6','E','9','A','D','B','C','7','G','P','Q','S','R','T','8','H','I','J','K','L','M','N','O','F'),.before = 1)
 
 df <- df[order(df$Key),]
